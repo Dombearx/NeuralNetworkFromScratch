@@ -11,7 +11,7 @@ class Neuron:
             self.weight = 1
             self.bias = 1
 
-    def forward(self, value: float) -> float:
+    def predict(self, value: float) -> float:
         return value * self.weight + self.bias
 
     def learn(self):
@@ -22,8 +22,8 @@ class Layer:
     def __init__(self, number_of_neurons: int = 100, random_initialization: bool = True):
         self.neurons = [Neuron(random_initialization) for _ in range(number_of_neurons)]
 
-    def forward(self, values: []) -> []:
-        return [neuron.forward(value) for neuron, value in zip(self.neurons, values)]
+    def predict(self, values: []) -> []:
+        return [neuron.predict(value) for neuron, value in zip(self.neurons, values)]
 
     def learn(self):
         raise Exception('Not implemented yet!')
