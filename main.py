@@ -18,6 +18,10 @@ class Neuron:
         raise Exception('Not implemented yet!')
 
 
+def function(x):
+    return x + 6
+
+
 def main():
     print('Simple neural network project')
 
