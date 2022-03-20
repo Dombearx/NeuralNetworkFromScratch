@@ -14,11 +14,22 @@ class Neuron:
     def forward(self, value: float) -> float:
         return value * self.weight + self.bias
 
-    def backward(self):
+    def learn(self):
         raise Exception('Not implemented yet!')
 
 
-def function(x):
+class Layer:
+    def __init__(self, number_of_neurons: int = 100, random_initialization: bool = True):
+        self.neurons = [Neuron(random_initialization) for _ in range(number_of_neurons)]
+
+    def forward(self, values: []) -> []:
+        return [neuron.forward(value) for neuron, value in zip(self.neurons, values)]
+
+    def learn(self):
+        raise Exception('Not implemented yet!')
+
+
+def function(x: float) -> float:
     return x + 6
 
 
