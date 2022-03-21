@@ -13,7 +13,7 @@ class Neuron:
             self.weights = np.ones(previous_layer_size)
             self.biases = np.ones(previous_layer_size)
 
-    def predict(self, values: np.ndarray) -> float:
+    def predict(self, values: np.ndarray) -> np.ndarray:
         return (values * self.weights) + self.biases
 
     def learn(self):
@@ -21,11 +21,11 @@ class Neuron:
 
 
 class Layer:
-    def __init__(self, number_of_neurons: int = 100, random_initialization: bool = True):
-        self.neurons = [Neuron(random_initialization) for _ in range(number_of_neurons)]
+    def __init__(self, previous_layer_size: int, number_of_neurons: int = 10, random_initialization: bool = True):
+        self.neurons = [Neuron(previous_layer_size, random_initialization) for _ in range(number_of_neurons)]
 
-    def predict(self, values: []) -> []:
-        return [neuron.predict(value) for neuron, value in zip(self.neurons, values)]
+    def predict(self, values: np.ndarray) -> np.ndarray:
+        return np.array([neuron.predict(value) for neuron, value in zip(self.neurons, values)])
 
     def learn(self):
         raise Exception('Not implemented yet!')
