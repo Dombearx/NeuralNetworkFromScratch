@@ -1,18 +1,20 @@
 import random
 
+import numpy as np
+
 
 class Neuron:
 
-    def __init__(self, random_initialization: bool = True) -> None:
+    def __init__(self, previous_layer_size: int, random_initialization: bool = True) -> None:
         if random_initialization:
-            self.weight = random.random()
-            self.bias = random.random()
+            self.weights = np.random.rand(previous_layer_size)
+            self.biases = np.random.rand(previous_layer_size)
         else:
-            self.weight = 1
-            self.bias = 1
+            self.weights = np.ones(previous_layer_size)
+            self.biases = np.ones(previous_layer_size)
 
-    def predict(self, value: float) -> float:
-        return value * self.weight + self.bias
+    def predict(self, values: np.ndarray) -> float:
+        return (values * self.weights) + self.biases
 
     def learn(self):
         raise Exception('Not implemented yet!')
