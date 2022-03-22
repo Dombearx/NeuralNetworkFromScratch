@@ -50,10 +50,18 @@ class Network:
         for layer in self.layers:
             values = layer.predict(values)
 
+        # convert to probability
+        values = np.array(list(map(lambda x: x / np.sum(values), values)))
         return values
 
     def learn(self, values: np.ndarray, true_label: int) -> None:
-        pass
+        predicted_values = self.predict(values)
+        loss = np.sum(
+            np.abs(
+                np.array([0 if i != true_label else 1 for i in range(len(self.layers[-1].neurons))]) - predicted_values
+            )
+        )
+        print(loss)
 
 
 def target_function(x: int) -> int:
@@ -63,15 +71,15 @@ def target_function(x: int) -> int:
 def main():
     print('Simple neural network project')
 
+    test_value = 20
+
     network = Network((16, 12, 12, 10), lambda v: 1 / (1 + math.exp(-v)))
-
-    input_val = np.array(list(map(int, '{0:b}'.format(20).zfill(16))))
-
+    input_val = np.array(list(map(int, '{0:b}'.format(test_value).zfill(16))))
     network_predicted = network.predict(input_val)
 
+    network.learn(input_val, target_function(test_value))
 
     x = np.arange(-100, 100, 1)
-
     y = np.array(list(map(target_function, x)))
 
     fig = plt.figure()
