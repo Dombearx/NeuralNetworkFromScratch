@@ -9,13 +9,13 @@ class Neuron:
     def __init__(self, previous_layer_size: int, random_initialization: bool = True) -> None:
         if random_initialization:
             self.weights = np.random.rand(previous_layer_size)
-            self.biases = np.random.rand(previous_layer_size)
+            self.bias = random.random()
         else:
             self.weights = np.ones(previous_layer_size)
-            self.biases = np.ones(previous_layer_size)
+            self.bias = 1
 
     def predict(self, values: np.ndarray) -> np.ndarray:
-        return (values * self.weights) + self.biases
+        return np.sum(values * self.weights) + self.bias
 
     def learn(self):
         raise Exception('Not implemented yet!')
