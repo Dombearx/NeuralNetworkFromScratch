@@ -14,7 +14,7 @@ class Neuron:
             self.weights = np.ones(previous_layer_size)
             self.bias = 1
 
-    def predict(self, values: np.ndarray) -> np.ndarray:
+    def predict(self, values: np.ndarray) -> float:
         return np.sum(values * self.weights) + self.bias
 
     def learn(self):
@@ -32,12 +32,26 @@ class Layer:
         raise Exception('Not implemented yet!')
 
 
+class Network:
+    def __init__(self, layer_sizes: tuple, random_initialization: bool = True):
+        self.layers = [Layer(previous_layer_size, number_of_neurons, random_initialization)
+                       for previous_layer_size, number_of_neurons in zip(layer_sizes[:-1], layer_sizes[1:])]
+
+    def predict(self):
+        pass
+
+    def learn(self):
+        pass
+
+
 def target_function(x: int) -> int:
-    return x**2 % 10
+    return x ** 2 % 10
 
 
 def main():
     print('Simple neural network project')
+
+    network = Network((256, 16, 16, 10))
 
     x = np.arange(-100, 100, 1)
 
