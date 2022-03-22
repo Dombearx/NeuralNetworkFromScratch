@@ -1,6 +1,7 @@
 import random
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class Neuron:
@@ -31,12 +32,20 @@ class Layer:
         raise Exception('Not implemented yet!')
 
 
-def function(x: float) -> float:
-    return x + 6
+def target_function(x: int) -> int:
+    return x**2 % 10
 
 
 def main():
     print('Simple neural network project')
+
+    x = np.arange(-100, 100, 1)
+
+    y = np.array(list(map(target_function, x)))
+
+    fig = plt.figure()
+    plt.plot(x, y, 'r')
+    plt.show()
 
 
 if __name__ == '__main__':
