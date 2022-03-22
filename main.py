@@ -56,10 +56,9 @@ class Network:
 
     def learn(self, values: np.ndarray, true_label: int) -> None:
         predicted_values = self.predict(values)
+        true_values = np.array([0 if i != true_label else 1 for i in range(len(self.layers[-1].neurons))])
         loss = np.sum(
-            np.abs(
-                np.array([0 if i != true_label else 1 for i in range(len(self.layers[-1].neurons))]) - predicted_values
-            )
+            np.power(predicted_values - true_values, 2)
         )
         print(loss)
 
