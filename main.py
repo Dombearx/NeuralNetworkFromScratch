@@ -46,10 +46,13 @@ class Network:
         self.layers = [Layer(previous_layer_size, activation_function, number_of_neurons, random_initialization)
                        for previous_layer_size, number_of_neurons in zip(layer_sizes[:-1], layer_sizes[1:])]
 
-    def predict(self):
-        pass
+    def predict(self, values: np.ndarray) -> np.ndarray:
+        for layer in self.layers:
+            values = layer.predict(values)
 
-    def learn(self):
+        return values
+
+    def learn(self, values: np.ndarray, true_label: int) -> None:
         pass
 
 
@@ -60,7 +63,12 @@ def target_function(x: int) -> int:
 def main():
     print('Simple neural network project')
 
-    network = Network((256, 16, 16, 10), lambda v: 1 / (1 + math.exp(-v)))
+    network = Network((16, 12, 12, 10), lambda v: 1 / (1 + math.exp(-v)))
+
+    input_val = np.array(list(map(int, '{0:b}'.format(20).zfill(16))))
+
+    network_predicted = network.predict(input_val)
+
 
     x = np.arange(-100, 100, 1)
 
